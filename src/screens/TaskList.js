@@ -18,9 +18,11 @@ import moment from 'moment';
 import 'moment/locale/pt-br';
 
 import Task from '../components/Task';
+import AddTasks from './AddTaks';
 
 export default class TaskList extends Component {
   state = {
+    showAddTask: true,
     showDoneTasks: true,
     visibleTasks: [],
     tasks: [
@@ -74,6 +76,10 @@ export default class TaskList extends Component {
     const today = moment().locale('pt-br').format('ddd, D [de] MMMM');
     return (
       <View style={styles.container}>
+        <AddTasks
+          isVisible={this.state.showAddTask}
+          onCancel={() => this.setState({showAddTask: false})}
+        />
         <ImageBackground source={todayImage} style={styles.background}>
           <View style={styles.iconBar}>
             <TouchableOpacity onPress={this.toogleFilter}>
