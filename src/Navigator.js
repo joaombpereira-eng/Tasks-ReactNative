@@ -9,9 +9,22 @@ import Auth from './screens/Auth';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+import Menu from './screens/Menu';
+import commonStyles from './commonStyles';
+
 const DrawerNavigator = props => {
   return (
-    <Drawer.Navigator screenOptions={{headerShown: false}}>
+    <Drawer.Navigator
+      drawerContent={props => <Menu {...props} />}
+      screenOptions={{
+        headerShown: false,
+        drawerLabelStyle: {
+          fontFamily: commonStyles.fontFamily,
+          fontWeigth: 'normal',
+          fontSize: 20,
+        },
+        drawerActiveTintColor: '#080',
+      }}>
       <Drawer.Screen name="Today" options={{title: 'Hoje'}}>
         {props => <TaskList title={'Hoje'} daysAhead={0} {...props} />}
       </Drawer.Screen>
