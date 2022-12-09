@@ -19,6 +19,9 @@ import moment from 'moment';
 import 'moment/locale/pt-br';
 
 import todayImage from '../../assets/imgs/today.jpg';
+import tomorrowImage from '../../assets/imgs/tomorrow.jpg';
+import weekImage from '../../assets/imgs/week.jpg';
+import monthImage from '../../assets/imgs/month.jpg';
 import commonStyles from '../commonStyles';
 import Task from '../components/Task';
 import AddTasks from './AddTaks';
@@ -112,6 +115,32 @@ export default class TaskList extends Component {
     }
   };
 
+  getImage = () => {
+    switch (this.props.daysAhead) {
+      case 0:
+        return todayImage;
+      case 1:
+        return tomorrowImage;
+      case 7:
+        return weekImage;
+      case 30:
+        return monthImage;
+    }
+  };
+
+  getColor = () => {
+    switch (this.props.daysAhead) {
+      case 0:
+        return commonStyles.colors.today;
+      case 1:
+        return commonStyles.colors.tomoroow;
+      case 7:
+        return commonStyles.colors.week;
+      case 30:
+        return commonStyles.colors.month;
+    }
+  };
+
   render() {
     const today = moment().locale('pt-br').format('ddd, D [de] MMMM');
     return (
@@ -121,7 +150,7 @@ export default class TaskList extends Component {
           onCancel={() => this.setState({showAddTask: false})}
           onSave={this.addTask}
         />
-        <ImageBackground source={todayImage} style={styles.background}>
+        <ImageBackground source={this.getImage()} style={styles.background}>
           <View style={styles.iconBar}>
             <TouchableOpacity
               onPress={() => this.props.navigation.openDrawer()}>
@@ -159,7 +188,7 @@ export default class TaskList extends Component {
         </View>
         <TouchableOpacity
           activeOpacity={0.7}
-          style={styles.addButton}
+          style={[styles.addButton, {backgroundColor: this.getColor()}]}
           onPress={() => this.setState({showAddTask: true})}>
           <Icon name="plus" size={20} color={commonStyles.colors.secondary} />
         </TouchableOpacity>
@@ -209,7 +238,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: commonStyles.colors.today,
     justifyContent: 'center',
     alignItems: 'center',
   },
