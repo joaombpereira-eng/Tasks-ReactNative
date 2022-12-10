@@ -13,9 +13,10 @@ import Menu from './screens/Menu';
 import commonStyles from './commonStyles';
 
 const DrawerNavigator = props => {
+  const {email, name} = props.route.params;
   return (
     <Drawer.Navigator
-      drawerContent={props => <Menu {...props} />}
+      drawerContent={props => <Menu {...props} email={email} name={name} />}
       screenOptions={{
         headerShown: false,
         drawerLabelStyle: {
