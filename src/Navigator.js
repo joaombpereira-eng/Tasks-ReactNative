@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 
+import AuthOrApp from './screens/AuthOrApp';
 import TaskList from './screens/TaskList';
 import Auth from './screens/Auth';
 
@@ -46,7 +47,8 @@ const AuthNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="Auth">
+      initialRouteName="AuthOrApp">
+      <Stack.Screen name="AuthOrApp" component={AuthOrApp} />
       <Stack.Screen name="Auth" component={Auth} />
       <Stack.Screen name="Home" component={DrawerNavigator} />
     </Stack.Navigator>
